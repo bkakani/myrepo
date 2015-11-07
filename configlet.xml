@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="iso-8859-1"?><cli-configlets>
+<cli-configlet>
+<!-- mandatory --><name>GIT SNMPv3 POLL SETTINGS</name>
+<category>Examples</category>
+<context>/device</context>
+<!-- mandatory --><device-family>ACX/J/M/MX/T/TX/PTX/EX92xx</device-family>
+<description>Grouped Execution-Device.Description Example-SNMPv3PollSettings of ACX-J-M-MX-T-TX-PTX-EX92xx Series.</description>
+<!-- mandatory --><execution-type>Grouped</execution-type>
+<preview-show-parameters>true</preview-show-parameters>
+<preview-show-configuration>true</preview-show-configuration>
+<postview-show-parameters>true</postview-show-parameters>
+<postview-show-configuration>true</postview-show-configuration>
+
+<cli-configlet-pages><!-- At least one configlet page required -->
+<cli-configlet-page>
+<page-number>1</page-number>
+<!-- mandatory --><cli-text>snmp {
+					view &quot;$SnmpViewName&quot; {
+					oid $OidView.get(0);
+					}
+					v3 {
+					usm {
+					local-engine {
+					#if ($AuthType.get(0) == &apos;authentication-none&apos;)
+					user &quot;$SnmpUser&quot; {
+					$AuthType.get(0);
+					}
+					#end
+
+					#if ($AuthType.get(0) != &apos;authentication-none&apos;)
+					user &quot;$SnmpUser&quot; {
+					$AuthType.get(0) {
+					authentication-password &quot;$AuthPwd&quot;;
+					}
+					#if ($AuthType.get(0) != &apos;authentication-none&apos; &amp;&amp;
+					$PrivType.get(0) != &apos;privacy-none&apos;)
+					$PrivType.get(0) {
+					privacy-password &quot;$PrivPwd&quot;;
+					}
+					#end
+					}
+					#end
+					}
+					}
+
+					vacm {
+					security-to-group {
+					security-model usm {
+					security-name &quot;$SnmpUser&quot; {
+					group &quot;$VacmAccessGroup&quot;;
+					}
+					}
+					}
+					access {
+					group &quot;$VacmAccessGroup&quot; {
+					default-context-prefix {
+					security-model usm {
+					security-level $SecurityLevel.get(0) {
+					read-view &quot;$SnmpViewName&quot;;
+					}
+					}
+					}
+					}
+					}
+					}
+
+					}
+					}
+
+				</cli-text>
+</cli-configlet-page>
+</cli-configlet-pages>
+
+<cli-configlet-params>
+<cli-configlet-param>
+<!-- mandatory --><parameter>SnmpViewName</parameter>
+<!-- mandatory --><display-name>Vacm Access View Name</display-name>
+<!-- mandatory --><parameter-type>Text Field</parameter-type>
+<description/>
+<parameter-scope>Global</parameter-scope>
+<regex-value/>
+<configured-value-xpath/>
+<default-value/>
+<!-- mandatory --><parameter-order>1</parameter-order>
+</cli-configlet-param>
+
+<cli-configlet-param>
+<!-- mandatory --><parameter>OidView</parameter>
+<!-- mandatory --><display-name>Vacm Access View</display-name>
+<!-- mandatory --><parameter-type>Invisible Field</parameter-type>
+<description/>
+<parameter-scope>Global</parameter-scope>
+<configured-value-xpath/>
+<default-value>.1</default-value>
+<!-- mandatory --><parameter-order>2</parameter-order>
+</cli-configlet-param>
+
+<cli-configlet-param>
+<!-- mandatory --><parameter>SnmpUser</parameter>
+<!-- mandatory --><display-name>Snmpv3 User Name</display-name>
+<!-- mandatory --><parameter-type>Text Field</parameter-type>
+<description/>
+<parameter-scope>Global</parameter-scope>
+<regex-value/>
+<configured-value-xpath/>
+<default-value/>
+<!-- mandatory --><parameter-order>3</parameter-order>
+</cli-configlet-param>
+
+<cli-configlet-param>
+<!-- mandatory --><parameter>AuthType</parameter>
+<!-- mandatory --><display-name>Authentication Type</display-name>
+<!-- mandatory --><parameter-type>Selection Field</parameter-type>
+<description/>
+<parameter-scope>Global</parameter-scope>
+<configured-value-xpath/>
+<default-value/>
+<selection-values-xpath/>
+<selection-values>authentication-sha,authentication-none,authentication-md5
+				</selection-values>
+<!-- mandatory --><parameter-order>4</parameter-order>
+</cli-configlet-param>
+
+<cli-configlet-param>
+<!-- mandatory --><parameter>AuthPwd</parameter>
+<!-- mandatory --><display-name>Authentication Password</display-name>
+<!-- mandatory --><parameter-type>Password Field</parameter-type>
+<description/>
+<parameter-scope>Global</parameter-scope>
+<regex-value/>
+<configured-value-xpath/>
+<default-value/>
+<!-- mandatory --><parameter-order>5</parameter-order>
+</cli-configlet-param>
+
+<cli-configlet-param>
+<!-- mandatory --><parameter>PrivType</parameter>
+<!-- mandatory --><display-name>Privacy Type</display-name>
+<!-- mandatory --><parameter-type>Selection Field</parameter-type>
+<description/>
+<parameter-scope>Global</parameter-scope>
+<configured-value-xpath/>
+<default-value/>
+<selection-values-xpath/>
+<selection-values>privacy-des,privacy-aes128,privacy-none
+				</selection-values>
+<!-- mandatory --><parameter-order>6</parameter-order>
+</cli-configlet-param>
+
+<cli-configlet-param>
+<!-- mandatory --><parameter>PrivPwd</parameter>
+<!-- mandatory --><display-name>Privacy Password</display-name>
+<!-- mandatory --><parameter-type>Password Field</parameter-type>
+<description/>
+<parameter-scope>Global</parameter-scope>
+<regex-value/>
+<configured-value-xpath/>
+<default-value/>
+<!-- mandatory --><parameter-order>7</parameter-order>
+</cli-configlet-param>
+
+<cli-configlet-param>
+<!-- mandatory --><parameter>VacmAccessGroup</parameter>
+<!-- mandatory --><display-name>Vacm Access Group Name</display-name>
+<!-- mandatory --><parameter-type>Text Field</parameter-type>
+<description/>
+<parameter-scope>Global</parameter-scope>
+<regex-value/>
+<configured-value-xpath/>
+<default-value/>
+<!-- mandatory --><parameter-order>8</parameter-order>
+</cli-configlet-param>
+
+<cli-configlet-param>
+<!-- mandatory --><parameter>SecurityLevel</parameter>
+<!-- mandatory --><display-name>Vacm Access Group Security level</display-name>
+<!-- mandatory --><parameter-type>Selection Field</parameter-type>
+<description/>
+<parameter-scope>Global</parameter-scope>
+<configured-value-xpath/>
+<default-value/>
+<selection-values-xpath/>
+<selection-values>privacy,authentication,none</selection-values>
+<!-- mandatory --><parameter-order>9</parameter-order>
+</cli-configlet-param>
+
+</cli-configlet-params>
+
+</cli-configlet>
+
+
+
+</cli-configlets>
