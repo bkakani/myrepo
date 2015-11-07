@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?><cli-configlets>
 <cli-configlet>
 <!-- mandatory --><name>GIT SNMPv3 POLL SETTINGS</name>
-<category>MyExamples</category>
+<category>MyExamples2</category>
 <context>/device</context>
 <!-- mandatory --><device-family>ACX/J/M/MX/T/TX/PTX/EX92xx</device-family>
 <description>Grouped Execution-Device.Description Example-SNMPv3PollSettings of ACX-J-M-MX-T-TX-PTX-EX92xx Series.</description>
